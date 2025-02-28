@@ -1,0 +1,1112 @@
+/* ===== VARIABLES ===== */
+:root {
+    /* Colors */
+    --primary-color: #ff6b6b;
+    --secondary-color: #4ecdc4;
+    --accent-color: #ffe66d;
+    --dark-color: #2f3542;
+    --light-color: #f7f7f7;
+    --success-color: #6bde8f;
+    --warning-color: #ffbe76;
+    --danger-color: #ff7675;
+    --text-color: #333;
+    
+    /* Bird colors */
+    --bird-body: #89CFF0;
+    --bird-wing: #75B9F3;
+    --bird-belly: #a6d8ff;
+    --bird-beak: #FFD700;
+    --bird-blush: #FFB6C1;
+    
+    /* Star colors - updated to be more yellow */
+    --star-color: #ffeb3b;
+    --star-glow: rgba(255, 235, 59, 0.8);
+    
+    /* UI Elements */
+    --border-radius: 8px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    
+    /* Dark Mode Colors */
+    --dark-bg-color: #121212;
+    --dark-card-bg: #1e1e1e;
+    --dark-text-color: #e0e0e0;
+    --dark-text-secondary: #b0b0b0;
+    --dark-border-color: #333;
+    --dark-input-bg: #2a2a2a;
+    --dark-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== RESET & BASE STYLES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f7fe;
+    color: var(--text-color);
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode for body */
+body.dark-mode {
+    background-color: var(--dark-bg-color);
+    color: var(--dark-text-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ===== HEADER ===== */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+}
+
+.tagline {
+    color: var(--dark-color);
+    font-size: 1.1rem;
+    font-weight: 300;
+}
+
+/* ===== APP LAYOUT ===== */
+.app-container {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+@media (min-width: 768px) {
+    .app-container {
+        flex-direction: row;
+    }
+}
+
+/* ===== CHARACTER STYLES ===== */
+/* Container for the character */
+.character-container {
+    flex: 1;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 20px;
+    min-height: 300px;
+}
+
+/* Scene where the character lives */
+.character-scene {
+    width: 100%;
+    height: 100%;
+    min-height: 260px;
+    background-color: #e8f5e9;
+    border-radius: var(--border-radius);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Main character wrapper */
+.character {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    transition: transform 0.5s ease;
+    z-index: 5;
+}
+
+/* Character body */
+.character-body {
+    width: 110px;
+    height: 110px;
+    background-color: var(--bird-body);
+    border-radius: 60% 60% 55% 55%;
+    position: absolute;
+    top: 25px;
+    left: 20px;
+    z-index: 1;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Character belly */
+.character-body::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: var(--bird-belly);
+    border-radius: 50%;
+    bottom: 18px;
+    left: 30px;
+    opacity: 0.7;
+}
+
+/* Character face container */
+.character-face {
+    position: absolute;
+    width: 80px;
+    height: 70px;
+    top: 40px;
+    left: 35px;
+    z-index: 2;
+}
+
+/* Eyes container */
+.character-eyes {
+    display: flex;
+    justify-content: space-between;
+    width: 50px;
+    margin: 0 auto;
+    margin-bottom: 5px;
+}
+
+/* Individual eye */
+.character-eye {
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+/* Eye pupil */
+.character-eye::after {
+    content: '';
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    background-color: #333;
+    border-radius: 50%;
+    top: 4px;
+    left: 5px;
+    transition: all 0.2s ease;
+}
+
+/* Eye shine */
+.character-eye::before {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: white;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    z-index: 3;
+}
+
+/* Left blush mark */
+.character-face::before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 5px;
+    background-color: var(--bird-blush);
+    border-radius: 50%;
+    top: 28px;
+    left: 5px;
+    opacity: 0.5;
+}
+
+/* Right blush mark */
+.character-face::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 5px;
+    background-color: var(--bird-blush);
+    border-radius: 50%;
+    top: 28px;
+    right: 5px;
+    opacity: 0.5;
+}
+
+/* Beak */
+.character-beak {
+    width: 16px;
+    height: 12px;
+    background-color: var(--bird-beak);
+    border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
+    margin: 8px auto 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Wings container */
+.character-wings {
+    position: absolute;
+    width: 100%;
+    top: 60px;
+    z-index: 0;
+}
+
+/* Individual wing */
+.character-wing {
+    width: 40px;
+    height: 65px;
+    background-color: var(--bird-wing);
+    border-radius: 60% 60% 50% 50% / 70% 70% 40% 40%;
+    position: absolute;
+    transition: transform 0.3s ease;
+}
+
+/* Left wing */
+.character-wing.left {
+    left: -5px;
+    transform-origin: right center;
+    transform: rotate(10deg);
+}
+
+/* Right wing */
+.character-wing.right {
+    right: -5px;
+    transform-origin: left center;
+    transform: rotate(-10deg);
+}
+
+/* Left tuft */
+.character::before {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 18px;
+    background-color: var(--bird-wing);
+    border-radius: 50% 50% 0 0;
+    top: 12px;
+    left: 62px;
+    z-index: 3;
+    transform: rotate(-5deg);
+}
+
+/* Right tuft */
+.character::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 14px;
+    background-color: var(--bird-body);
+    border-radius: 50% 50% 0 0;
+    top: 14px;
+    left: 70px;
+    z-index: 3;
+    transform: rotate(15deg);
+}
+
+/* Character message bubble */
+.character-message {
+    margin-top: 30px;
+    padding: 10px 20px;
+    background: linear-gradient(to bottom, #ffffff, #f8f8f8);
+    border: 2px solid #e0e0e0;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--dark-color);
+    position: relative;
+    max-width: 80%;
+    text-align: center;
+    z-index: 10;
+}
+
+/* Message bubble pointer */
+.character-message::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 12px solid #e0e0e0;
+}
+
+/* Message bubble inner pointer */
+.character-message::after {
+    content: '';
+    position: absolute;
+    top: -9px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 9px solid white;
+}
+
+/* ===== CHARACTER ANIMATIONS ===== */
+/* Working animation */
+@keyframes working {
+    0% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-6px) rotate(-1deg); }
+    50% { transform: translateY(0) rotate(0deg); }
+    75% { transform: translateY(-6px) rotate(1deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* Wing flapping animation */
+@keyframes flapping {
+    0% { transform: rotate(10deg); }
+    50% { transform: rotate(30deg); }
+    100% { transform: rotate(10deg); }
+}
+
+/* Right wing flapping animation */
+@keyframes flapping-right {
+    0% { transform: rotate(-10deg); }
+    50% { transform: rotate(-30deg); }
+    100% { transform: rotate(-10deg); }
+}
+
+/* Resting animation */
+@keyframes resting {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02) rotate(0.5deg); }
+    100% { transform: scale(1); }
+}
+
+/* Blinking animation */
+@keyframes blinking {
+    0% { height: 16px; }
+    48% { height: 16px; }
+    50% { height: 2px; }
+    52% { height: 16px; }
+    100% { height: 16px; }
+}
+
+/* Apply animations to character states */
+.character.working .character-wing.left {
+    animation: flapping 0.8s infinite;
+}
+
+.character.working .character-wing.right {
+    animation: flapping-right 0.8s infinite;
+}
+
+.character.working {
+    animation: working 2s infinite;
+}
+
+.character.resting {
+    animation: resting 4s infinite;
+}
+
+.character.resting .character-eye::after {
+    animation: blinking 4s infinite;
+}
+
+/* ===== TASK & SESSION STYLES ===== */
+/* Task container */
+.task-pomodoro-container {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Timer container */
+.timer-container {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Timer display */
+.timer {
+    text-align: center;
+}
+
+.timer-display {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 20px;
+}
+
+/* Timer controls */
+.timer-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Timer mode buttons */
+.timer-mode {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.btn-mode {
+    background-color: #f0f0f0;
+    color: var(--dark-color);
+}
+
+.btn-mode.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Session counter */
+.session-counter {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* Session setup */
+.session-setup {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.session-setup h2 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.session-setup p {
+    margin-bottom: 15px;
+    color: var(--dark-color);
+}
+
+.session-controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Session progress */
+.session-progress {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.session-progress h2 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Progress statistics */
+.progress-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--dark-color);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* Progress bar */
+.progress-bar {
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--primary-color);
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+/* Task input */
+.task-input {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.task-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    font-family: 'Poppins', sans-serif;
+}
+
+.task-input button {
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+/* Task list */
+.task-list {
+    list-style-type: none;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: var(--border-radius);
+    margin-bottom: 8px;
+    border: 1px solid #eee;
+    background-color: #f9f9f9;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.task-item:hover {
+    background-color: #f0f0f0;
+}
+
+.task-checkbox {
+    margin-right: 10px;
+}
+
+.task-text {
+    flex: 1;
+}
+
+.task-completed {
+    background-color: #f0fff4;
+    border-color: #d7f5e5;
+}
+
+.task-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.task-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #888;
+    transition: var(--transition);
+}
+
+.task-actions button:hover {
+    color: var(--dark-color);
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+    padding: 10px 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.btn:hover {
+    background-color: #ff5252;
+}
+
+.btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #3dbdb5;
+}
+
+#end-session {
+    display: block;
+    margin: 20px auto 0;
+}
+
+/* ===== NEWSLETTER ===== */
+.newsletter-container {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.newsletter-container h2 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.newsletter-container p {
+    margin-bottom: 20px;
+}
+
+#newsletter-form {
+    display: flex;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+#email-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    font-family: 'Poppins', sans-serif;
+}
+
+#newsletter-form button {
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+#subscription-message {
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    color: #888;
+    font-size: 0.9rem;
+}
+
+footer i {
+    color: var(--primary-color);
+}
+
+/* Day/Night Scene Styles */
+.day-scene {
+    background: linear-gradient(to bottom, #87CEEB, #e8f5e9);
+    position: relative;
+    overflow: hidden;
+}
+
+.night-scene {
+    background: linear-gradient(to bottom, #1a237e, #311b92);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Sun */
+.day-scene::before {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: #FFD700;
+    border-radius: 50%;
+    top: 30px;
+    right: 30px;
+    box-shadow: 0 0 20px #FFD700;
+    z-index: 0;
+}
+
+/* Clouds */
+.day-scene::after {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 30px;
+    top: 40px;
+    left: 30px;
+    box-shadow: 
+        40px 10px 0 -5px rgba(255, 255, 255, 0.8),
+        80px -10px 0 -10px rgba(255, 255, 255, 0.6);
+    z-index: 0;
+}
+
+/* Moon */
+.night-scene::before {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: #FFFDE7;
+    border-radius: 50%;
+    top: 30px;
+    right: 40px;
+    box-shadow: 0 0 20px rgba(255, 255, 220, 0.6), 0 0 40px rgba(255, 255, 220, 0.3);
+    z-index: 0;
+    animation: jiggle-moon 12s infinite ease-in-out, moon-glow 8s infinite alternate;
+}
+
+@keyframes moon-glow {
+    0% { box-shadow: 0 0 20px rgba(255, 255, 220, 0.6), 0 0 40px rgba(255, 255, 220, 0.3); }
+    100% { box-shadow: 0 0 25px rgba(255, 255, 220, 0.7), 0 0 50px rgba(255, 255, 220, 0.4); }
+}
+
+/* Stars */
+.night-scene::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background-color: var(--star-color);
+    border-radius: 50%;
+    top: 20px;
+    left: 30px;
+    box-shadow: 
+        15px 15px 0 0 var(--star-color),
+        30px 5px 0 0 var(--star-color),
+        45px 25px 0 0 var(--star-color),
+        60px 5px 0 0 var(--star-color),
+        75px 15px 0 0 var(--star-color),
+        90px 25px 0 0 var(--star-color),
+        105px 10px 0 0 var(--star-color),
+        120px 20px 0 0 var(--star-color),
+        135px 5px 0 0 var(--star-color),
+        150px 15px 0 0 var(--star-color),
+        20px 40px 0 0 var(--star-color),
+        40px 50px 0 0 var(--star-color),
+        60px 60px 0 0 var(--star-color),
+        80px 45px 0 0 var(--star-color),
+        100px 55px 0 0 var(--star-color),
+        120px 40px 0 0 var(--star-color),
+        140px 60px 0 0 var(--star-color);
+    z-index: 0;
+    filter: drop-shadow(0 0 4px var(--star-glow));
+    animation: twinkle 4s infinite alternate, jiggle-stars 10s infinite ease-in-out;
+}
+
+/* Adjust character message for night mode */
+.night-scene .character-message {
+    background: linear-gradient(to bottom, #ffffff, #f8f8f8);
+    border: 2px solid #e0e0e0;
+    animation: jiggle-message 8s infinite ease-in-out;
+}
+
+@keyframes jiggle-stars {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(2px, 1px); }
+    50% { transform: translate(0, 3px); }
+    75% { transform: translate(-2px, 1px); }
+    100% { transform: translate(0, 0); }
+}
+
+@keyframes jiggle-moon {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-2px, 1px); }
+    50% { transform: translate(0, 2px); }
+    75% { transform: translate(2px, 1px); }
+    100% { transform: translate(0, 0); }
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.5; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+    100% { opacity: 0.7; transform: scale(1); }
+}
+
+@keyframes jiggle-message {
+    0% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(2px) rotate(0.5deg); }
+    50% { transform: translateY(0) rotate(-0.5deg); }
+    75% { transform: translateY(2px) rotate(0.5deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* Make the night scene elements jiggle */
+.night-scene {
+    background: linear-gradient(to bottom, #1a237e, #311b92);
+    position: relative;
+    overflow: hidden;
+    animation: jiggle-scene 15s infinite ease-in-out;
+}
+
+@keyframes jiggle-scene {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(2px, 1px) rotate(0.2deg); }
+    50% { transform: translate(0, 2px) rotate(-0.1deg); }
+    75% { transform: translate(-2px, 1px) rotate(0.2deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* Additional stars for depth */
+.night-scene .additional-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.night-scene .star {
+    position: absolute;
+    background-color: var(--star-color);
+    border-radius: 50%;
+    filter: drop-shadow(0 0 4px var(--star-glow));
+    animation: twinkle 3s infinite alternate, jiggle-stars 12s infinite ease-in-out;
+}
+
+.night-scene .star.tiny {
+    width: 1px;
+    height: 1px;
+}
+
+.night-scene .star.small {
+    width: 2px;
+    height: 2px;
+    box-shadow: 0 0 4px 1px var(--star-glow);
+}
+
+.night-scene .star.medium {
+    width: 3px;
+    height: 3px;
+    box-shadow: 0 0 6px 2px var(--star-glow);
+}
+
+.night-scene .star.large {
+    width: 4px;
+    height: 4px;
+    box-shadow: 0 0 8px 3px var(--star-glow);
+}
+
+/* Adjust animation timing for different stars */
+.night-scene .star:nth-child(2n) {
+    animation-delay: 0.5s;
+}
+
+.night-scene .star:nth-child(3n) {
+    animation-delay: 1s;
+}
+
+.night-scene .star:nth-child(5n) {
+    animation-delay: 1.5s;
+}
+
+/* ===== DARK MODE STYLES ===== */
+/* Header dark mode */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3 {
+    color: var(--dark-text-color);
+}
+
+body.dark-mode .tagline {
+    color: var(--dark-text-secondary);
+}
+
+/* Card containers dark mode */
+body.dark-mode .character-container,
+body.dark-mode .timer-container,
+body.dark-mode .session-setup,
+body.dark-mode .session-progress,
+body.dark-mode .newsletter-container {
+    background-color: var(--dark-card-bg);
+    box-shadow: var(--dark-box-shadow);
+    border-color: var(--dark-border-color);
+}
+
+/* Task items dark mode */
+body.dark-mode .task-item {
+    background-color: #252525;
+    border-color: #333;
+}
+
+body.dark-mode .task-item:hover {
+    background-color: #2a2a2a;
+}
+
+body.dark-mode .task-completed {
+    background-color: #1a2e22;
+    border-color: #2a4a3a;
+}
+
+body.dark-mode .task-actions button {
+    color: #aaa;
+}
+
+body.dark-mode .task-actions button:hover {
+    color: var(--dark-text-color);
+}
+
+/* Input fields dark mode */
+body.dark-mode input[type="text"],
+body.dark-mode input[type="email"] {
+    background-color: var(--dark-input-bg);
+    border-color: var(--dark-border-color);
+    color: var(--dark-text-color);
+}
+
+/* Timer display dark mode */
+body.dark-mode .timer-display {
+    color: var(--dark-text-color);
+}
+
+/* Button mode dark mode */
+body.dark-mode .btn-mode {
+    background-color: #2a2a2a;
+    color: var(--dark-text-secondary);
+}
+
+body.dark-mode .btn-mode.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Progress stats dark mode */
+body.dark-mode .stat-value {
+    color: var(--dark-text-color);
+}
+
+body.dark-mode .stat-label {
+    color: var(--dark-text-secondary);
+}
+
+/* Progress bar dark mode */
+body.dark-mode .progress-bar {
+    background-color: #333;
+}
+
+/* Footer dark mode */
+body.dark-mode footer {
+    color: var(--dark-text-secondary);
+}
+
+/* Character message dark mode */
+body.dark-mode .character-message {
+    background: linear-gradient(to bottom, #2a2a2a, #252525);
+    border-color: #333;
+    color: var(--dark-text-color);
+}
+
+body.dark-mode .character-message::before {
+    border-bottom-color: #333;
+}
+
+body.dark-mode .character-message::after {
+    border-bottom-color: #2a2a2a;
+}
+
+/* Scene toggle button */
+.scene-toggle {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    z-index: 10;
+}
+
+.btn-small {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--dark-color);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+}
+
+.btn-small:hover {
+    background-color: white;
+}
+
+.btn-small i {
+    font-size: 0.9rem;
+}
+
+/* Adjust for night mode */
+.night-scene .btn-small {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Add night mode specific animation to character */
+.night-scene .character {
+    animation: jiggle-character 8s infinite ease-in-out;
+}
+
+@keyframes jiggle-character {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(2px, 2px) rotate(1deg); }
+    50% { transform: translate(0, 3px) rotate(-0.5deg); }
+    75% { transform: translate(-2px, 2px) rotate(1deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* Adjust character scene to ensure proper positioning */
+.character-scene {
+    position: relative;
+    overflow: hidden;
+} 
+
+/* Z-index fixes to ensure proper layering */
+
+/* Make sure the character message is on top of everything */
+.character-message {
+    z-index: 10 !important;
+    position: relative;
+}
+
+/* Character should be above the stars */
+.character {
+    z-index: 5 !important;
+    position: relative;
+}
+
+/* Stars should be at the bottom layer */
+.night-scene .additional-stars {
+    z-index: 1 !important;
+}
+
+/* Toggle button should be on top */
+.scene-toggle {
+    z-index: 10 !important;
+}
+
+/* Message bubble pointers should also be on top */
+.character-message::before,
+.character-message::after {
+    z-index: 11 !important;
+}

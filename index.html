@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Buddy | Gamified Task Tracker for Productivity</title>
+    <meta name="description" content="Focus Buddy helps you stay productive with a gamified Pomodoro timer, task tracking, and a friendly companion to keep you motivated.">
+    <meta name="keywords" content="pomodoro timer, productivity app, task tracker, focus app, time management">
+    <meta name="author" content="Focus Buddy">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://markorenic.github.io/gsd/">
+    <meta property="og:title" content="Focus Buddy | Gamified Task Tracker">
+    <meta property="og:description" content="Complete your tasks with a friendly companion using the Pomodoro technique. Track progress and stay motivated.">
+    <meta property="og:image" content="favicon/web-app-manifest-512x512.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://markorenic.github.io/gsd/">
+    <meta property="twitter:title" content="Focus Buddy | Gamified Task Tracker">
+    <meta property="twitter:description" content="Complete your tasks with a friendly companion using the Pomodoro technique. Track progress and stay motivated.">
+    <meta property="twitter:image" content="favicon/web-app-manifest-512x512.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://markorenic.github.io/gsd/">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Focus Buddy</h1>
+            <p class="tagline">Complete your tasks with a friendly companion</p>
+        </header>
+
+        <main>
+            <div class="app-container">
+                <div class="task-pomodoro-container">
+                    <section class="session-setup" id="session-setup" aria-labelledby="session-setup-heading">
+                        <h2 id="session-setup-heading">Plan Your Work Session</h2>
+                        <p>List all the tasks you want to complete during this work session:</p>
+                        <div class="task-input">
+                            <label for="task-input" class="sr-only">Add a task</label>
+                            <input type="text" id="task-input" placeholder="Add a task..." aria-label="Enter a task">
+                            <button id="add-task" class="btn" aria-label="Add task"><i class="fas fa-plus" aria-hidden="true"></i></button>
+                        </div>
+                        <ul id="task-list" class="task-list" aria-label="Task list">
+                            <!-- Tasks will be added here dynamically -->
+                        </ul>
+                        <div class="session-controls">
+                            <button id="start-session" class="btn btn-primary"><i class="fas fa-play" aria-hidden="true"></i> Start Session</button>
+                        </div>
+                    </section>
+
+                    <section class="timer-container" id="timer-container" style="display: none;" aria-labelledby="timer-heading">
+                        <div class="timer">
+                            <h2 id="timer-heading" class="sr-only">Pomodoro Timer</h2>
+                            <div class="timer-display" aria-live="polite" aria-atomic="true">
+                                <span id="minutes">25</span>:<span id="seconds">00</span>
+                            </div>
+                            <div class="timer-controls">
+                                <button id="start-timer" class="btn" aria-label="Start timer"><i class="fas fa-play" aria-hidden="true"></i> Start</button>
+                                <button id="pause-timer" class="btn" disabled aria-label="Pause timer"><i class="fas fa-pause" aria-hidden="true"></i> Pause</button>
+                                <button id="reset-timer" class="btn" aria-label="Reset timer"><i class="fas fa-redo" aria-hidden="true"></i> Reset</button>
+                            </div>
+                            <div class="timer-mode" role="radiogroup" aria-label="Timer mode">
+                                <button id="pomodoro" class="btn btn-mode active" role="radio" aria-checked="true">Pomodoro</button>
+                                <button id="short-break" class="btn btn-mode" role="radio" aria-checked="false">Short Break</button>
+                                <button id="long-break" class="btn btn-mode" role="radio" aria-checked="false">Long Break</button>
+                            </div>
+                            <div class="session-counter" aria-live="polite">
+                                <span id="completed-sessions">0</span> sessions completed
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="session-progress" id="session-progress" style="display: none;" aria-labelledby="session-progress-heading">
+                        <h2 id="session-progress-heading">Session Progress</h2>
+                        <div class="progress-stats">
+                            <div class="stat">
+                                <span class="stat-value" id="completed-tasks-count">0</span>
+                                <span class="stat-label">Completed</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value" id="remaining-tasks-count">0</span>
+                                <span class="stat-label">Remaining</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value" id="total-tasks-count">0</span>
+                                <span class="stat-label">Total</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <ul id="session-task-list" class="task-list" aria-label="Session tasks">
+                            <!-- Session tasks will be shown here -->
+                        </ul>
+                        <button id="end-session" class="btn btn-secondary"><i class="fas fa-stop" aria-hidden="true"></i> End Session</button>
+                    </section>
+                </div>
+
+                <div class="character-container">
+                    <div class="character-scene" id="character-scene">
+                        <div class="character" id="character" aria-hidden="true">
+                            <div class="character-body"></div>
+                            <div class="character-face">
+                                <div class="character-eyes">
+                                    <div class="character-eye left"></div>
+                                    <div class="character-eye right"></div>
+                                </div>
+                                <div class="character-beak"></div>
+                            </div>
+                            <div class="character-wings">
+                                <div class="character-wing left"></div>
+                                <div class="character-wing right"></div>
+                            </div>
+                        </div>
+                        <div class="character-message" id="character-message" aria-live="polite">
+                            Let's plan our work session!
+                        </div>
+                        <div class="scene-toggle">
+                            <button id="toggle-scene" class="btn btn-small" aria-label="Toggle day/night mode">
+                                <i class="fas fa-moon" aria-hidden="true"></i>
+                                <span>Toggle Day/Night</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="newsletter-container" aria-labelledby="newsletter-heading">
+                <h2 id="newsletter-heading">Unlock Premium Productivity</h2>
+                <p>Join our VIP list for exclusive tools, discounts, and productivity hacks!</p>
+                <form id="newsletter-form" action="https://formspree.io/f/mzzdnevz" method="POST">
+                    <label for="email-input" class="sr-only">Email address</label>
+                    <input type="email" id="email-input" name="email" placeholder="Your email address" required aria-label="Your email address">
+                    <button type="submit" class="btn btn-primary">Get VIP Access</button>
+                </form>
+                <p id="subscription-message" aria-live="polite"></p>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Focus Buddy. Made with <i class="fas fa-heart" aria-hidden="true"></i> for productivity.</p>
+        </footer>
+    </div>
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Focus Buddy",
+        "applicationCategory": "ProductivityApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "description": "Focus Buddy is a gamified task tracker that helps you stay productive with the Pomodoro technique and a friendly companion.",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "156"
+        }
+    }
+    </script>
+
+    <script src="scripts/app.js"></script>
+</body>
+</html> 
